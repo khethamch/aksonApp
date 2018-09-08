@@ -1,0 +1,136 @@
+﻿@model AksonApp.Models.Bookings
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Bookings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarRegistration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarRegistration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstDateOption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstDateOption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondDateOption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondDateOption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DropOffTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DropOffTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DropOff)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DropOff)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PickUp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCancelled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCancelled)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeStamp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

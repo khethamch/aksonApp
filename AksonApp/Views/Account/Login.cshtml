@@ -1,0 +1,47 @@
+﻿@using AksonApp.Models
+@model LoginViewModel
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<style>
+    body {
+        background-image: url('../../Images/1.jpg');
+    }
+</style>
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="container">
+        <div class="card card-container">
+            <h3><b><span class="fa fa-user-circle fa-2x"></span> Log In</b></h3>
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin">
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger alert-dismissable">
+                        <button class="close" data-dismiss="alert">&times;</button>
+                        @ViewBag.Error
+                    </div>
+                }
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="email" name="Email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus><br />
+                <input type="password" name="Password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <input class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Sign In" onclick="this.form.submit(); this.disabled=true; this.value='Logging in...';">
+            </form><!-- /form -->
+            <br />
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+            <a href="@Url.Action("Register","Account")" class="forgot-password">
+                Register
+            </a>
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div><!-- /card-container -->
+    </div>
+}
+<!-- /container -->

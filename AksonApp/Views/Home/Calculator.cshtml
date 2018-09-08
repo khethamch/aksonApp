@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Calculator";
+}
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<style>
+    body {
+        background-image: url('../../Images/1.jpg');
+    }
+</style>
+<div class="container">
+    <div class="card card-container" style="max-width:100%!important;width:1000px">
+        <h2>Finance Calculator</h2>
+        <p>
+            Use our finance calculator to estimate the monthly payments on the vehicle you want to drive. You can change options, such as the deposit amount, to see what suits you best.
+        </p>
+        <div class="container">
+            <label>Purchase Price (ZAR) *</label><br />
+            <input type="number" id="price" class="form-control" />
+            <label>Deposit/Trade In value</label><br />
+            <input type="number" id="deposit" onkeypress="cal()" class="form-control" />
+            <label>Interest Rate *</label><br />
+            <input type="text" id="deposit" onkeypress="cal()" class="form-control" />
+
+
+            <h3>R 0,00</h3>
+            <label>Ballon Value</label>
+
+            <h3>R 0,00</h3>
+            <label>Installment</label>
+            <p id="demo"></p>
+            <div class="alert alert-info" style="width:900px">
+                Any information obtained on this calculator will not constitute a finance quote as contemplated by the NCA and customers are reminded that any information regarding our finance products are subject to change. An Initiation and Monthly Fee will apply. Terms and Conditions apply.
+            </div>
+            <script>
+                function cal() {
+                    var a = 54;
+                    var b = 0;
+                    var c = 0;
+                    if (document.getElementById("#price") == null) {
+                        b = document.getElementById("#price");
+                    }
+                    if (document.getElementById("#deposit") == null) {
+                        c = document.getElementById("#deposit");
+                    }
+
+                    var x = (b / c) * a;
+                    document.getElementById("demo").innerHTML = x;
+                }
+
+            </script>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@model AksonApp.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<style>
+    body {
+        background-image: url('../../Images/1.jpg');
+    }
+</style>
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken();
+    <div class="container">
+        <div class="card card-container" style="max-width:100%!important;width:800px">
+            <h3><b><span class="fa fa-user-plus fa-2x"></span> Register</b></h3>
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="text" name="FirstName" class="form-control" placeholder="First Name" required autofocus><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="LastName" class="form-control" placeholder="Last Name" required><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="Identity" class="form-control" placeholder="Identity Number/Passport Number" required><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="Gender" class="form-control" placeholder="Gender" required><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="email" name="Email" class="form-control" placeholder="Email" required><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="text" name="Mobile" class="form-control" placeholder="Mobile Number" required><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="password" name="Password" id="inputPassword" class="form-control" placeholder="Password" required><br />
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="password" name="ConfirmPassword" id="inputPassword" class="form-control" placeholder="Confirm Password" required><br />
+                    </div>
+                </div>
+                <br />
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> I accept the <a><b>term and condition</b></a> of use of the website.
+                    </label>
+                </div>
+                <br />
+                <button class="btn btn-lg btn-primary btn-block btn-signin" style="max-width:100%;width:300px" type="submit">Register</button>
+                <br />Already have an account? <a href="@Url.Action("Account","Login")">Login</a>
+            </form><!-- /form -->
+
+        </div><!-- /card-container -->
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
