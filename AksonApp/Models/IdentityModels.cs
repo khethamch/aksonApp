@@ -32,5 +32,6 @@ namespace AksonApp.Models
         public DbSet<UserProfile> UserProfile { get; set; }
         public DbSet<Bookings> Bookings { get; set; }
         public DbSet<ServiceTypes> ServiceTypes { get; set; }
+        public DbSet<TestDrive> TestDrive { get; set; }
     }
 }
