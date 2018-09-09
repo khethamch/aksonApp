@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -41,16 +42,34 @@ namespace AksonApp.Controllers
             return View();
         }
 
-        // POST: TestDrives/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,ContactNumber,Email,Model,Make,Licence,Attathment,IsCancelled,DateTimeStamp")] TestDrive testDrive)
+        public ActionResult Create(TestDrive testDrive, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                testDrive.Id = Guid.NewGuid();
+                if(file.ContentLength > 0 && file != null)
+                {
+                    string ext = Path.GetExtension(file.FileName);
+                    if (ext != ".pdf")
+                    {
+                        ViewBag.Error = $"Error, Accepted file format is .pdf";
+                        return View();
+                    }
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/LicenceCopies"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+
+                        testDrive.Attathment = path;
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.Error = e.Message;
+                        return View(testDrive);
+                    }
+                }
+
                 db.TestDrive.Add(testDrive);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -74,12 +93,9 @@ namespace AksonApp.Controllers
             return View(testDrive);
         }
 
-        // POST: TestDrives/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,ContactNumber,Email,Model,Make,Licence,Attathment,IsCancelled,DateTimeStamp")] TestDrive testDrive)
+        public ActionResult Edit(TestDrive testDrive)
         {
             if (ModelState.IsValid)
             {
