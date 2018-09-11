@@ -2,32 +2,44 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+
+<div class="carousel">
+    <a class="carousel-item" href="#one!"><img src="https://picsum.photos/600/600?image=1071"></a>
+    <a class="carousel-item" href="#one!"><img src="https://picsum.photos/600/600?image=982"></a>
+    <a class="carousel-item" href="#one!"><img src="https://picsum.photos/600/600?image=605"></a>
+    <a class="carousel-item" href="#one!"><img src="https://picsum.photos/600/600?image=183"></a>
+    <a class="carousel-item" href="#one!"><img src="https://picsum.photos/600/600?image=111"></a>
+
+</div>
+<br /><br />
+<div class="row">
+    <h1 class="blue-grey-text center">What do we do</h1>
+    <br /><br />
+    <div class="col m4">
+        <img class="responsive-img" src="~/Images/1.jpg" />
+        <h3 class="blue-grey-text light">Finacial Calculator</h3>
+        <p><a class="btn btn-large red btn-block" href="@Url.Action("Calculator","Home")">Get Estimate</a></p>
+    </div>
+    <div class="col m4">
+        <img class="responsive-img" src="~/Images/1.jpg" />
+        <h3 class="blue-grey-text light">Book a Test Drive</h3>
+        <p><a class="btn btn-large red btn-block" href="@Url.Action("Create","TestDrives")">Book Now</a></p>
+    </div>
+    <div class="col m4">
+        <img class="responsive-img" src="~/Images/1.jpg" />
+        <h3 class="blue-grey-text light">Service Booking</h3>
+        <p><a class="btn btn-large red btn-block" href="@Url.Action("Create","Bookings")">Book Now</a></p>
+    </div>
+    <div class="col s12">
+        <p class="blue-grey-text light flow-text">
+            Quisque pretium, mi eu cursus feugiat, arcu ipsum facilisis est, non volutpat enim leo sit amet orci. Fusce dolor ligula, mollis in tristique eget, placerat at nulla. In venenatis eleifend diam vitae lobortis. Duis pulvinar at odio quis rhoncus. Vestibulum quis enim posuere, condimentum tellus sed, scelerisque turpis. Aenean lacus mauris, faucibus eu vulputate nec, vestibulum ut nisi. Fusce facilisis ac enim rutrum blandit. In hac habitasse platea dictumst. Morbi congue ligula sed feugiat posuere. In hac habitasse platea dictumst.
+        </p>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Finacial Calculator</h2>
-        <p>
-            <img width="300" src="~/Images/calculator.jpg" />
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Calculator","Home")">Get Estimate &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Book a Test Drive</h2>
-        <p>
-            <img width="300" src="~/Images/1.jpg" />
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Create","TestDrives")">Book Now &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Service Booking</h2>
-        <p>
-            <img width="300" src="~/Images/service.jpg" />
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Create","Bookings")">Book Now &raquo;</a></p>
-    </div>
-</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.carousel');
+        var instances = M.Carousel.init(elems, { fullWidth: false, indicators: true });
+    });
+</script>
