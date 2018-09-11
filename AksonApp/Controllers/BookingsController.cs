@@ -38,13 +38,14 @@ namespace AksonApp.Controllers
         // GET: Bookings/Create
         public ActionResult Create()
         {
+            ViewBag.Code = new SelectList(db.PhoneCodes.Where(m => m.code.Length <= 4), "code", "code");
             ViewBag.ServiceType = new SelectList(db.ServiceTypes, "Name", "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Bookings bookings)
+        public ActionResult Create(Bookings bookings, string CountryCode)
         {
             if (ModelState.IsValid)
             {
@@ -53,6 +54,7 @@ namespace AksonApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Code = new SelectList(db.PhoneCodes, "code", "code");
             ViewBag.ServiceType = new SelectList(db.ServiceTypes, "Name", "Name");
             return View(bookings);
         }
