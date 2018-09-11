@@ -3,52 +3,110 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/themes/base/datepicker.css" rel="stylesheet" />
-    <style>
-        .navbar-inverse {
-            padding: 0.5em;
-            background-color: indianred;
-            border-color: indianred;
-        }
-    </style>
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a style="color:white" class="navbar-brand" href="@Url.Action("Index","Home")">App</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a style="color:white" href="@Url.Action("Index","Home")">Home</a></li>
-                    <li><a style="color:white" href="@Url.Action("About","Home")">About</a></li>
-                    <li><a style="color:white" href="@Url.Action("Contact","Home")">Contact</a></li>
-                    <li><a style="color:white" href="@Url.Action("Create","TestDrives")">Book a Test Drive</a></li>
-                    <li><a style="color:white" href="@Url.Action("Create","Bookings")">Service Booking</a></li>
+    <header>
+        <nav class="red lighten-1" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="/" class="brand-logo">
+                    App
+                </a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                    <li><a href="#aboutModal" data-target="aboutModal" class="modal-trigger">About</a></li>
+                    <li><a href="@Url.Action("Create","TestDrives")">Book a Test Drive</a></li>
+                    <li><a href="@Url.Action("Create","Bookings")">Service Booking</a></li>
+                    @Html.Partial("_LoginPartial")
                 </ul>
-                @Html.Partial("_LoginPartial")
+
+
+                @*<ul id="nav-mobile" class="sidenav">
+                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li><a href="@Url.Action("About","Home")">About</a></li>
+                        <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
+                        <li><a href="@Url.Action("Create","TestDrives")">Book a Test Drive</a></li>
+                        <li><a href="@Url.Action("Create","Bookings")">Service Booking</a></li>
+                        @Html.Partial("_LoginPartial")
+                    </ul>
+                    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>*@
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+    <footer class="page-footer red">
+        <div class="container">
+            <div class="row">
+                <div class="col l8 s12">
+                    <h5 class="white-text">Akson</h5>
+                    <p class="grey-text text-lighten-4">Quisque pretium, mi eu cursus feugiat, arcu ipsum facilisis est, non volutpat enim leo sit amet orci.</p>
+
+                </div>
+                <div class="col l4 s12">
+                    <h5 class="white-text">Contact Us</h5>
+                    <p class="grey-text text-lighten-4">
+                        One Microsoft Way<br />
+                        Redmond, WA 98052-6399<br />
+                        P: 425.555.0100
+                    </p>
+                    <ul class="connect">
+                        <li><a class="white-text flow-text" href="#!"><i class="fa fa-facebook"></i></a></li>
+                        <li><a class="white-text flow-text" href="#!"><i class="fa fa-twitter"></i></a></li>
+                        <li><a class="white-text flow-text" href="#!"><i class="fa fa-instagram"></i></a></li>
+
+                    </ul>
+
+                </div>
             </div>
         </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Developed by <a class="orange-text text-lighten-3" href="!#">Dudes who Code</a>
+            </div>
+        </div>
+    </footer>
+    <div id="aboutModal" class="modal bottom-sheet">
+        <div class="container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="post-title blue-grey-text center">About Us</h3>
+                    <br />
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="post-body blue-grey-text valign">
+                                Cras id tortor vitae nisi cursus venenatis quis sed nisl. Mauris aliquet, ipsum sed lacinia pulvinar, augue odio egestas lectus, ut interdum erat eros quis nunc. Praesent velit elit, aliquam in auctor sed, pretium vitae orci. Quisque dignissim sollicitudin dui non rhoncus. Donec placerat dolor et aliquam malesuada. Nulla consequat, leo sed dapibus lacinia, est orci accumsan ligula, ultricies efficitur leo sem a est. Nulla pellentesque consequat nibh porttitor dignissim. Nullam aliquet urna in tortor euismod blandit. In sodales diam vitae venenatis luctus. Suspendisse ac libero velit. Nam fringilla massa a mauris dictum, non cursus sapien dignissim. In hac habitasse platea dictumst.
+                                <br /><br />
+                                Nulla laoreet dignissim enim id placerat. Duis sodales nunc ut tempor laoreet. Cras ultrices ut mauris ut dapibus. Donec egestas dolor quam, id facilisis justo finibus quis. Duis venenatis consequat nunc, eget ullamcorper nisi pharetra id. Suspendisse vitae risus justo. Suspendisse egestas orci a quam fringilla aliquet. Integer eu maximus orci. Curabitur augue libero, dictum in nisl tempus, convallis dapibus justo. Duis at ante mi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce sed arcu sed risus pharetra vehicula. Nulla imperdiet sed nunc condimentum gravida. Sed ac sem vitae ex volutpat pretium at nec massa.
+                            </p>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+        </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-    
-  
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script src="~/Scripts/materialize/init.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modals = document.querySelectorAll('.modal');
+            M.Modal.init(modals);
+        });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
