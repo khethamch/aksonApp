@@ -35,11 +35,12 @@ namespace AksonApp.Models
         public string Other { get; set; }
         public bool IsCancelled { get; set; }
         public DateTime DateTimeStamp { get; set; }
+        public string Reference { get; set; }
 
         public Bookings()
         {
             Id = Guid.NewGuid();
             DateTimeStamp = DateTime.Now;
-        }
+        }  
     }
 }

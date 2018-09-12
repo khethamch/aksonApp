@@ -3,10 +3,10 @@
 @{
     ViewBag.Title = "Create";
 }
-<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
-<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+@*<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />*@
 <link href="~/Content/Custom.css" rel="stylesheet" />
-<style>
+@*<style>
     body {
         background-image: url('../../Images/service.jpg');
         background-position: center;
@@ -14,13 +14,13 @@
         background-size: cover;
         height: 900px;
     }
-</style>
+</style>*@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="container">
-        <div class="card card-container" style="max-width:100%!important;width:1000px">
+        <div class="card card-container" style="max-width:100%!important;width:1600px">
             <h3><b><span class="fa fa-cogs fa-2x"></span> Book a Service</b></h3><br />
             <div class="row">
                 <div class="col-sm-6">
@@ -41,8 +41,8 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label" })
                         <div class="input-group">
-                            @Html.DropDownList("CountryCode", (SelectList)ViewBag.Code, new { @class = "form-control" ,@style = "width:80px" })
-                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control", @style = "width:200px"} })
+                            @*@Html.DropDownList("CountryCode", (SelectList)ViewBag.Code, new { @class = "form-control" ,@style = "width:80px" })*@
+                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control"} })
                         </div>
                         @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
                     </div>
@@ -99,6 +99,12 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         @Html.LabelFor(model => model.ServiceType, htmlAttributes: new { @class = "control-label" })
+                            <select>
+                                <option value="" disabled selected>Choose your option</option>
+                                <option value="1">Option 1</option>
+                                <option value="2">Option 2</option>
+                                <option value="3">Option 3</option>
+                            </select>
                         @Html.DropDownListFor(model => model.ServiceType, (SelectList)ViewBag.ServiceType, "Select", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.ServiceType, "", new { @class = "text-danger" })
                     </div>
@@ -137,5 +143,15 @@
         //    dropdown: true,
         //    scrollbar: true
         //});
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems, options);
+        });
+
+        // Or with jQuery
+
+        $(document).ready(function () {
+            $('select').formSelect();
+        });
     </script>
 }

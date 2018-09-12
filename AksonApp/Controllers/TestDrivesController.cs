@@ -5,6 +5,8 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Configuration;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using AksonApp.Models;
@@ -48,36 +50,68 @@ namespace AksonApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(file.ContentLength > 0 && file != null)
+                try
                 {
-                    string ext = Path.GetExtension(file.FileName);
-                    if (ext != ".pdf")
+                    if (file.ContentLength > 0 && file != null)
                     {
-                        ViewBag.Error = $"Error, Accepted file format is .pdf";
-                        return View();
-                    }
-                    try
-                    {
-                        string path = Path.Combine(Server.MapPath("~/LicenceCopies"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
+                        string ext = Path.GetExtension(file.FileName);
+                        if (ext != ".pdf")
+                        {
+                            ViewBag.Error = $"Error, Accepted file format is .pdf";
+                            return View();
+                        }
+                        try
+                        {
+                            string path = Path.Combine(Server.MapPath("~/LicenceCopies"), Path.GetFileName(file.FileName));
+                            file.SaveAs(path);
 
-                        testDrive.Attathment = path;
+                            testDrive.Attathment = path;
+                        }
+                        catch (Exception e)
+                        {
+                            ViewBag.Error = e.Message;
+                            return View(testDrive);
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        ViewBag.Error = e.Message;
-                        return View(testDrive);
-                    }
+                    testDrive.Reference = RandomString();
+
+                    SmtpClient smtp = new SmtpClient();
+                    var send = (SmtpSection)System.Configuration.ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+                    MailMessage mail = new MailMessage();
+                    mail.To.Add(testDrive.Email);
+                    mail.Subject = "Akson Test Drive Booking Confirmation";
+                    mail.From = new MailAddress(send.From);
+                    mail.Body = $"Congatulations <br/><br/>" +
+                        $"Your test drive booking was successfully and is " +
+                        $"scheduled for the {testDrive.Date.ToShortDateString()} and your booking reference is {testDrive.Reference}. <br/><br/>" +
+                        "Regards <br/>" +
+                        "Akson Sales Team.";
+                    mail.IsBodyHtml = true;
+
+                    smtp.Send(mail);
+
+                    Sms sms = new Sms();
+                    sms.Send_SMS(testDrive.ContactNumber, $"Akson Test Drive Booking Reference No: {testDrive.Reference}");
+
+                    db.TestDrive.Add(testDrive);
+                    db.SaveChanges();
+                    return RedirectToAction("Success");
                 }
-
-                db.TestDrive.Add(testDrive);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                catch(Exception ex)
+                {
+                    //ex.Message;
+                }
+      
             }
 
             return View(testDrive);
         }
 
+        public ActionResult Success()
+        {
+            return View();
+        }
         // GET: TestDrives/Edit/5
         public ActionResult Edit(Guid? id)
         {
@@ -130,6 +164,14 @@ namespace AksonApp.Controllers
             db.TestDrive.Remove(testDrive);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private static Random random = new Random();
+        public static string RandomString()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 7)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
         protected override void Dispose(bool disposing)

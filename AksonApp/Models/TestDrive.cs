@@ -20,13 +20,16 @@ namespace AksonApp.Models
         [Display(Name = "Model Of Interest*")]
         public string Model { get; set; }
         [Display(Name = "Make Of Interest*")]
-        public DateTime Make { get; set; }
+        public string Make { get; set; }
         [Display(Name = "Licence Number*")]
         public string Licence { get; set; }
         [Display(Name = "Attathment (Licence Copy)*")]
         public string Attathment { get; set; }
+        [Display(Name = "Desired Date")]
+        public DateTime Date { get; set; }
         public bool IsCancelled { get; set; }
         public DateTime DateTimeStamp { get; set; }
+        public string Reference { get; set; }
 
         public TestDrive()
         {

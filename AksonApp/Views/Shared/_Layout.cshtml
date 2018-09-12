@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />
+    @*<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="~/Content/materialize/css/materialize.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
@@ -75,6 +76,7 @@
         </div>
     </footer>
     <div id="aboutModal" class="modal bottom-sheet">
+        <button data-dismiss="modal">&times;</button>
         <div class="container">
             <div class="modal-content">
                 <div class="modal-header">
@@ -99,14 +101,19 @@
     </div>
 
     <script src="~/Scripts/jquery-2.2.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-    <script src="~/Scripts/materialize/init.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var modals = document.querySelectorAll('.modal');
-            M.Modal.init(modals);
-        });
-    </script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+        <script src="~/Scripts/materialize/init.js"></script>*@
+    @*<script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var modals = document.querySelectorAll('.modal');
+                M.Modal.init(modals);
+            });
+        </script>*@
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Modal.js")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
