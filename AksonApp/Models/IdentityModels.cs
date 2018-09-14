@@ -34,5 +34,11 @@ namespace AksonApp.Models
         public DbSet<ServiceTypes> ServiceTypes { get; set; }
         public DbSet<TestDrive> TestDrive { get; set; }
         public DbSet<PhoneCodes> PhoneCodes { get; set; }
+        public DbSet<LikeTable> LikeTable { get; set; }
+        public DbSet<Post> Post { get; set; }
+        public DbSet<Comment> Comment { get; set; }
+        public DbSet<Tag> Tag { get; set; }
+        public DbSet<Products> Products { get; set; }
+        public DbSet<Cars> Cars { get; set; }
     }
 }

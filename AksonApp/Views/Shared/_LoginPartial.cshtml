@@ -3,21 +3,148 @@
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="right hide-on-med-and-down">
-        <li>
-            <a href="#" style="color:white"a>Hello @User.Identity.GetUserName()</a>
-            @*@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-        </li>
-        <li><a style="color:white" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+<ul class="nav navbar-nav pull-right">
+    <li>
+        <a href="#" style="color:white" a>Hello @User.Identity.GetUserName()</a>
+    </li>
+    <li><a style="color:white" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    <li class="dropdown">
+        <a style="color:white;background-color:transparent" href="#" class="draggable dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="fa fa-shopping-cart"></span></a>
+        <span class="cart-items-count"><span class=" notification-counter">0</span></span>
+        <ul class="dropdown-menu dropdown-cart" role="menu">
+            <li>
+                <span class="item">
+                    <span class="item-left">
+                        <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <a style="color:indianred" href="">&times;</a>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="item">
+                    <span class="item-left">
+                        <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <a style="color:indianred" href="">&times;</a>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="item">
+                    <span class="item-left">
+                        <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <a style="color:indianred" href="">&times;</a>
+                    </span>
+                </span>
+            </li>
+            <li>
+                <span class="item">
+                    <span class="item-left">
+                        <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                        <span class="item-info">
+                            <span>Item name</span>
+                            <span>23$</span>
+                        </span>
+                    </span>
+                    <span class="item-right">
+                        <a style="color:indianred" href="">&times;</a>
+                    </span>
+                </span>
+            </li>
+            <li class="divider"></li>
+            <li><a class="text-center" href="">View Cart</a></li>
+        </ul>
+    </li>
+</ul>
     }
 }
 else
 {
-    <ul class="right hide-on-med-and-down">
+    <ul class="nav navbar-nav pull-right">
         <li><a href="@Url.Action("Register","Account")"><span class="fa fa-user-plus"></span> Register</a></li>
         <li><a href="@Url.Action("Login","Account")"><span class="fa fa-user-circle"></span> Log In</a></li>
+        <li class="dropdown">
+            <a style="color:white;background-color:transparent" href="#" class="draggable dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="fa fa-shopping-cart"></span></a>
+            <span class="cart-items-count"><span class=" notification-counter">0</span></span>
+            <ul class="dropdown-menu dropdown-cart" role="menu">
+                <li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                            <span class="item-info">
+                                <span>Item name</span>
+                                <span>23$</span>
+                            </span>
+                        </span>
+                        <span class="item-right">
+                            <a style="color:indianred" href="">&times;</a>
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                            <span class="item-info">
+                                <span>Item name</span>
+                                <span>23$</span>
+                            </span>
+                        </span>
+                        <span class="item-right">
+                            <a style="color:indianred" href="">&times;</a>
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                            <span class="item-info">
+                                <span>Item name</span>
+                                <span>23$</span>
+                            </span>
+                        </span>
+                        <span class="item-right">
+                            <a style="color:indianred" href="">&times;</a>
+                        </span>
+                    </span>
+                </li>
+                <li>
+                    <span class="item">
+                        <span class="item-left">
+                            <img src="~/Pictures/Fashion.jpg" width="20" alt="" />
+                            <span class="item-info">
+                                <span>Item name</span>
+                                <span>23$</span>
+                            </span>
+                        </span>
+                        <span class="item-right">
+                            <a style="color:indianred" href="">&times;</a>
+                        </span>
+                    </span>
+                </li>
+                <li class="divider"></li>
+                <li><a class="text-center" href="">View Cart</a></li>
+            </ul>
+        </li>
     </ul>
 }

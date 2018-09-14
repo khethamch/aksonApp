@@ -1,0 +1,90 @@
+﻿@model AksonApp.Models.Cars
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Cars</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Make)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Make)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsNew)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsNew)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OutsideImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OutsideImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InteriorImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InteriorImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CarPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CarPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateTimeStamp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateTimeStamp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsCancelled)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsCancelled)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

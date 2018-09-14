@@ -2,16 +2,20 @@
 @{
     ViewBag.Title = "Success";
 }
-<br />
-<div class="container" style="text-align:center">
-   
-    <div class="card-panel" style="width:600px">
-        <img src="~/Images/testdrive.jpg" width="550" />
-        <span style="color:forestgreen" class="fa fa-check-square-o fa-5x"></span>
-        <p>
-            Your booking was successfully please check your email and sms inbox for the booking referencer.<br /><br />
-            <a class="waves-effect waves-light btn" href="@Url.Action("Index","Home")">Go to Home</a>
-        </p>
+<div class="container">
+    <div class="card card-container" style="max-width:100%!important;width:700px">
+        <div class="container" style="text-align:center">
+
+            <div class="card-panel" style="width:600px">
+                <img src="~/Images/testdrive.jpg" width="550" />
+                <br />
+                <span style="color:forestgreen" class="fa fa-check-square-o fa-5x"></span>
+                <p>
+                    Your booking was successfully please check your email and sms inbox for the booking referencer.<br /><br />
+                    <a class="btn btn-default" href="@Url.Action("Index","Home")">Go to Home</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 

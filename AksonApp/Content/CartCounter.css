@@ -1,0 +1,29 @@
+﻿.cart-box {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    width: 48px;
+    height: 48px;
+    z-index: 2147483000;
+    cursor: pointer;
+    background-position: 50%;
+}
+
+.cart-items-count {
+    position: relative;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    top: -45px;
+    right:-8px;
+}
+
+.notification-counter {
+    position: absolute;
+    right: 8px;
+    background-color: rgba(212, 19, 13, 1);
+    color: #fff;
+    border-radius: 3px;
+    padding: 2px 4px;
+    font: 8px Verdana;
+}

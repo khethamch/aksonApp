@@ -1,0 +1,141 @@
+﻿@model AksonApp.Models.Post
+@using AksonApp.Models
+@using Microsoft.AspNet.Identity
+@using System.Data
+
+@{
+    ViewBag.Title = "Details";
+    ApplicationDbContext _db = new ApplicationDbContext();
+    var id = User.Identity.GetUserId();
+    var name = _db.UserProfile.Where(m => m.Email == Model.Author).Select(m => m.FirstName + " " + m.LastName).FirstOrDefault();
+    var likeCount = _db.LikeTable.Count(m => m.PostId == Model.Id.ToString() && m.UserId == id);
+}
+<div id="postForm" class="container">
+    <div class="card card-container" style="max-width:100%!important;width:1600px">
+        <div class="row" style="text-align:center">
+            <img src="~/BlogPics/@Model.Image" style="max-width:100%" width="1200" height="400" />
+        </div>
+        <h2 style="padding-top:1em">@Model.Title</h2>
+        <div class="row">
+            <div class="col-sm-6">
+                <b>
+                    @Html.DisplayNameFor(model => model.Date) : @Model.Date
+                </b>
+            </div>
+            <div class="col-sm-6">
+                <b>
+                    @Html.DisplayNameFor(model => model.Author) : @name
+                </b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <br />
+                @{
+                    var tags = _db.Tag.Where(m => m.Author == Model.Author && m.Post == Model.Id.ToString());
+                }
+                @foreach (var item in tags)
+                {
+                    <a class="btn btn-success" href="@Url.Action("Index","Home", new { tagName = item.KeyWord, tagId = item.Post})">@item.KeyWord</a><text>&nbsp;&nbsp;</text>
+                }
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12 container">
+                @Model.Blurb<br /><br />
+                @if (likeCount != 0)
+                {
+                    <button class="btn btn-danger btn-sm"><i class="fa fa-heart-o"></i> You liked this</button>
+                }
+                else
+                {
+                    var options = new AjaxOptions()
+                    {
+                        HttpMethod = "Post",
+                        InsertionMode = InsertionMode.ReplaceWith,
+                        UpdateTargetId = "postForm"
+                    };
+                    using (Ajax.BeginForm("Like", "Posts", options))
+                    {
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button title="You have already liked this post." class="btn btn-info btn-sm" type="submit"><i class="fa fa-thumbs-o-up"></i> Like Post</button>
+                    }
+                }
+            </div>
+
+        </div>
+        <br />
+        @{ 
+            var optionsCom = new AjaxOptions()
+            {
+                HttpMethod = "Post",
+                InsertionMode = InsertionMode.ReplaceWith,
+                UpdateTargetId = "postForm"
+            };
+        }
+        @using (Ajax.BeginForm("AddComment", "Posts", optionsCom))
+        {
+            var countComment = _db.Comment.Count(m => m.BlogId == Model.Id);
+            if (countComment > 0)
+            {
+                var foundComment = _db.Comment.Where(m => m.BlogId == Model.Id).OrderByDescending(m => m.Date);
+                <h4>Comments  <span class="fa fa-comment-dots"></span></h4>
+                <hr />
+                foreach (var item in foundComment)
+                {
+                    <div class="row jumbotron" style="padding:0.5em;background-color:#cce7cc">
+                        <div class="col-sm-12">
+                            <text><i class="fa fa-commenting-o"></i> @item.Content</text>
+                        </div>
+                        <br />
+                        <div class="col-sm-12">
+                            <h6 style="font-size:12px;padding-top:0.5em">
+                                <b>
+                                    @{
+                                        ApplicationDbContext db = new ApplicationDbContext();
+                                        var userName = db.UserProfile.Where(m => m.Email == item.Name).Select(m => m.FirstName + " " + m.LastName).FirstOrDefault();
+                                    }
+                                    <text>Written By:&nbsp;</text>@userName&nbsp;&nbsp;&nbsp;&nbsp;<text>Date:&nbsp;</text>@item.Date
+                                    @if (User.IsInRole("AdminForex"))
+                                    {
+                                        <br />
+                                        <a href="@Url.Action("RemoveComment","Posts",new { id = item.Id})" style="color:indianred;text-decoration:none">Remove</a>
+                                    }
+                                </b>
+                            </h6>
+                        </div>
+                    </div>
+                }
+
+            }
+
+            <hr />
+            if (User.Identity.IsAuthenticated)
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4>Write comment</h4>
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <textarea class="form-control" name="CommentContent" placeholder="Write your comment here..." style="max-width:100%" required></textarea>
+                        <br />
+                        <button type="submit" class="btn btn-success"><i class="fa fa-commenting-o"></i> Comment</button> | <a class="btn btn-primary" href="@Url.Action("Index","Home")">Go Back</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4>Write comment</h4>
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <textarea class="form-control" name="CommentContent" placeholder="Login to write a comment." style="max-width:100%" readonly></textarea>
+                        <br />
+                        <input type="submit" class="btn btn-info" value="Submit" disabled /> | <a class="btn btn-outline-danger" href="@Url.Action("Index","Home")">Go Back</a>
+                    </div>
+                </div>
+            }
+
+        }
+    </div>
+</div>

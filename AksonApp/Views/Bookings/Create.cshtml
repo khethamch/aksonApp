@@ -3,18 +3,9 @@
 @{
     ViewBag.Title = "Create";
 }
-@*<link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
-<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />*@
+
 <link href="~/Content/Custom.css" rel="stylesheet" />
-@*<style>
-    body {
-        background-image: url('../../Images/service.jpg');
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 900px;
-    }
-</style>*@
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -40,10 +31,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.ContactNumber, htmlAttributes: new { @class = "control-label" })
-                        <div class="input-group">
-                            @*@Html.DropDownList("CountryCode", (SelectList)ViewBag.Code, new { @class = "form-control" ,@style = "width:80px" })*@
-                            @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control"} })
-                        </div>
+                        @Html.EditorFor(model => model.ContactNumber, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -64,47 +52,43 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.FirstDateOption, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.FirstDateOption, null, new { @class = "form-control datepicker" })
+                        @Html.TextBoxFor(model => model.FirstDateOption, null, new { @class = "form-control datepicker", @type = "date" })
                         @Html.ValidationMessageFor(model => model.FirstDateOption, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.SecondDateOption, htmlAttributes: new { @class = "control-label" })
-                        @Html.TextBoxFor(model => model.SecondDateOption, null, new { @class = "form-control datepicker" })
+                        @Html.TextBoxFor(model => model.SecondDateOption, null, new { @class = "form-control datepicker", @type = "date" })
                         @Html.ValidationMessageFor(model => model.SecondDateOption, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.DropOffTime, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.DropOffTime, new { htmlAttributes = new { @class = "form-control timepicker" } })
+                        @Html.EditorFor(model => model.DropOffTime, new { htmlAttributes = new { @class = "form-control timepicker", @type = "time" } })
                         @Html.ValidationMessageFor(model => model.DropOffTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="DropOff" /> @Html.LabelFor(model => model.DropOff, htmlAttributes: new { @class = "control-label" })
-                        </label>
+                        <div class="checkbox" style="padding-left:1.5em">
+                            @Html.CheckBoxFor(model => model.DropOff)
+                            @Html.LabelFor(model => model.DropOff)
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="PickUp" /> @Html.LabelFor(model => model.PickUp, htmlAttributes: new { @class = "control-label" })
-                        </label>
+                        <div class="checkbox" style="padding-left:1.5em">
+                            @Html.CheckBoxFor(m => m.DropOff)
+                            @Html.LabelFor(m => m.DropOff)
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
                         @Html.LabelFor(model => model.ServiceType, htmlAttributes: new { @class = "control-label" })
-                            <select>
-                                <option value="" disabled selected>Choose your option</option>
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                            </select>
                         @Html.DropDownListFor(model => model.ServiceType, (SelectList)ViewBag.ServiceType, "Select", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.ServiceType, "", new { @class = "text-danger" })
                     </div>
@@ -112,46 +96,21 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                         @Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextAreaFor(model => model.Other, new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
-                        <input type="submit" value="Submit" class="btn btn-success" /> | <a href="@Url.Action("Index","Home")" class="btn btn-warning">Cancel</a>
+                        <input type="submit" value="Submit" class="btn btn-success" onclick="this.form.submit(); this.disabled=true; this.value='Submitting...';"> | <a href="@Url.Action("Index","Home")" class="btn btn-warning">Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="~/Scripts/jquery.timepicker.js"></script>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
 
     <script>
-        var $j = jQuery.noConflict();
-        $j(".datepicker").datepicker();
-        $j(".datepicker").t
-        //$j('.timepicker').timepicker({
-        //    timeFormat: 'h:mm p',
-        //    interval: 60,
-        //    minTime: '10',
-        //    maxTime: '6:00pm',
-        //    defaultTime: '7',
-        //    startTime: '10:00',
-        //    dynamic: false,
-        //    dropdown: true,
-        //    scrollbar: true
-        //});
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('select');
-            var instances = M.FormSelect.init(elems, options);
-        });
-
-        // Or with jQuery
-
-        $(document).ready(function () {
-            $('select').formSelect();
-        });
+        $(".datepicker").datepicker();
     </script>
 }
