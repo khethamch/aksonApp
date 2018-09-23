@@ -40,5 +40,10 @@ namespace AksonApp.Models
         public DbSet<Tag> Tag { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Cars> Cars { get; set; }
+        public DbSet<MyCart> MyCart { get; set; }
+        public DbSet<OrderModel> OrderModel { get; set; }
+        public DbSet<CarHireModel> CarHireModel { get; set; }
+
+        public System.Data.Entity.DbSet<AksonApp.Models.ContactModel> ContactModels { get; set; }
     }
 }

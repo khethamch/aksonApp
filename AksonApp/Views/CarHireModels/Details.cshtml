@@ -1,0 +1,160 @@
+﻿@model AksonApp.Models.CarHireModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>
+    Quote Details <text style="color:gray">Quote Reference: #@Model.Referrence</text>
+    @if (Model.Accepted)
+    {
+        <span style="color:forestgreen" class="fa fa-check"></span>
+    }
+    else
+    {
+        <span style="color:orange" class="fa fa-exclamation"></span>
+    }
+</h2>
+<h3>Quote Date : <text style="color:gray">@Model.DateTimeStamp.ToShortDateString()</text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quote Time : <text style="color:gray">@Model.DateTimeStamp.ToShortTimeString()</text></h3>
+
+<h4>Quote Total Amount Due: <text style="color:gray">@Model.RentalPrice.ToString("c")</text></h4>@if(Model.Bluetooth || Model.Navigator)
+{
+<h4>Extras: <text style="color:gray">
+    @if (Model.Navigator)
+    {
+        <text>Navigator ,</text>
+    }
+    @if (Model.Bluetooth)
+    {
+        <text>Bluetooth</text>
+    }
+</text>
+    </h4>
+}
+
+<div>
+    <dl class="dl-horizontal">
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.Contact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contact)
+        </dd>
+
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.FromDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromDate)
+        </dd>
+
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.ToDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToDate)
+        </dd>
+
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.PayMethode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PayMethode)
+        </dd>
+        <dt style="text-align:left">
+            @Html.DisplayNameFor(model => model.PickUpLocation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PickUpLocation)
+        </dd>
+    </dl>
+</div>
+@if (Model.PayMethode == "E.F.T")
+{
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Bank Details</h3>
+            <b>Bank :</b>&nbsp;&nbsp;FNB<br />
+            <b>Branch:</b>&nbsp;&nbsp;Durban Central<br />
+            <b>Branch Code:</b>&nbsp;&nbsp;250 665<br />
+            <b>Account Type:</b>&nbsp;&nbsp;Current<br />
+            <b>Account Number:</b>&nbsp;&nbsp;626204456233<br />
+            <b>Reference:</b>&nbsp;&nbsp;@Model.Referrence
+        </div>
+    </div>
+    <br />
+    if (!Model.Accepted)
+    {
+        <p>
+            <a data-modal="" href="@Url.Action("AcceptQuote",new { id = Model.Id})" class="btn btn-success">Accept Quote</a> | <button disabled class="btn btn-info">Print Quote <span class="fa fa-print"></span></button> |
+            <a href="@Url.Action("Details","Cars",new { id = Model.CarId})" class="btn btn-danger">Go Back</a>
+        </p>
+    }
+    else
+    {
+        <p id="hideMe">
+            <button disabled class="btn btn-success">Accept Quote</button> | <button onclick="printpage();" class="btn btn-info">Print Quote <span class="fa fa-print"></span></button> |
+            <a href="@Url.Action("Index","Home")" class="btn btn-danger">Back to Home</a>
+        </p>
+    }
+
+}
+else
+{
+    <p>
+        <a class="btn btn-primary">Accept Quote and Procced</a> |
+        <a href="@Url.Action("Details","Cars",new { id = Model.CarId})" class="btn btn-danger">Go Back</a>
+    </p>
+}
+
+<script type="text/javascript">
+    function printpage() {
+        //Get the print button and put it into a variable
+        var printButton = document.getElementById("hideMe"); hideFooter
+        var printButtonHide = document.getElementById("hideFooter");
+        //Set the print button visibility to 'hidden'
+        printButton.style.visibility = 'hidden';
+        printButtonHide.style.visibility = 'hideFooter';
+        //Print the page content
+        window.print()
+        //Set the print button to 'visible' again
+        //[Delete this line if you want it to stay hidden after printing]
+        printButton.style.visibility = 'visible';
+    }
+</script>

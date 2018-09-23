@@ -1,0 +1,69 @@
+﻿@model AksonApp.Models.Products
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+@using (Html.BeginForm("Create", "ManageProducts", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="card card-container" style="max-width:100%!important;width:1600px">
+            <h3><b>Add Product</b></h3><br />
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductDescription, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductPrice, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                @Html.ValidationMessageFor(model => model.ProductPrice, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductRating, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.ProductRating, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                @Html.ValidationMessageFor(model => model.ProductRating, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.StockAvaliable, htmlAttributes: new { @class = "control-label" })
+
+                @Html.EditorFor(model => model.StockAvaliable, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                @Html.ValidationMessageFor(model => model.StockAvaliable, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductImage, htmlAttributes: new { @class = "control-label" })
+
+                <input type="file" name="file" />
+                @Html.ValidationMessageFor(model => model.ProductImage, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-success" onclick="this.form.submit(); this.disabled=true; this.value='Submitting...';"> | <a href="@Url.Action("Index")" class="btn btn-warning">Back</a>
+            </div>
+        </div>
+    </div>
+
+}
+

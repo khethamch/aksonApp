@@ -1,17 +1,39 @@
-﻿@{
+﻿@model AksonApp.Models.ContactModel
+@{
     ViewBag.Title = "Contact";
+    Layout = null;
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+@using (Html.BeginForm())
+{
+    <div class="modal-body">
+        <div class="modal-header" style="background-color:#233a77">
+            <h2 style="color:white">Contact Form</h2>
+        </div>
+        <br />
+        <label>Name</label>
+        <input type="text" class="form-control" required />
+        <label>Email</label>
+        <input type="text" class="form-control" required />
+        <label>Contant</label>
+        <input type="text" class="form-control" required />
+        <label>Message</label>
+        <textarea class="form-control" required></textarea>
+        <br />
+        <input type="submit" class="btn btn-success" value="Submit" />&nbsp;&nbsp;<button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+    </div>
+}
+
+
+@*<address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
+
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>*@

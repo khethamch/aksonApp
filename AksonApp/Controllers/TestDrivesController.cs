@@ -50,31 +50,27 @@ namespace AksonApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (file.ContentLength > 0 && file != null)
+                {
+                    try
+                    {
+                        string path = Path.Combine(Server.MapPath("~/LicenceCopies"), Path.GetFileName(file.FileName));
+                        file.SaveAs(path);
+
+                        testDrive.Attathment = path;
+                    }
+                    catch (Exception e)
+                    {
+                        ViewBag.Error = e.Message;
+                        return View(testDrive);
+                    }
+                }
+                testDrive.Reference = RandomString();
+                db.TestDrive.Add(testDrive);
+                db.SaveChanges();
+
                 try
                 {
-                    if (file.ContentLength > 0 && file != null)
-                    {
-                        string ext = Path.GetExtension(file.FileName);
-                        if (ext != ".pdf")
-                        {
-                            ViewBag.Error = $"Error, Accepted file format is .pdf";
-                            return View();
-                        }
-                        try
-                        {
-                            string path = Path.Combine(Server.MapPath("~/LicenceCopies"), Path.GetFileName(file.FileName));
-                            file.SaveAs(path);
-
-                            testDrive.Attathment = path;
-                        }
-                        catch (Exception e)
-                        {
-                            ViewBag.Error = e.Message;
-                            return View(testDrive);
-                        }
-                    }
-                    testDrive.Reference = RandomString();
-
                     SmtpClient smtp = new SmtpClient();
                     var send = (SmtpSection)System.Configuration.ConfigurationManager.GetSection("system.net/mailSettings/smtp");
 
@@ -93,16 +89,13 @@ namespace AksonApp.Controllers
 
                     Sms sms = new Sms();
                     sms.Send_SMS(testDrive.ContactNumber, $"Akson Test Drive Booking Reference No: {testDrive.Reference}");
-
-                    db.TestDrive.Add(testDrive);
-                    db.SaveChanges();
-                    return RedirectToAction("Success");
                 }
                 catch(Exception ex)
                 {
-                    //ex.Message;
+
                 }
-      
+
+                return RedirectToAction("Success");
             }
 
             return View(testDrive);

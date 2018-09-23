@@ -1,0 +1,119 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<AksonApp.Models.Cars>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    a {
+        color: indianred;
+    }
+</style>
+<h2>Manage Cars</h2>
+
+<p>
+    <div class="row">
+        <div class="col-sm-2">
+            <a class="btn btn-success" href="@Url.Action("Create")">Add Cars</a>
+        </div>
+        @using (Html.BeginForm("IndexCars", "Cars", FormMethod.Get))
+        {
+            <div class="col-sm-2">
+                @Html.DropDownList("Sort", (SelectList)ViewBag.List, "Filter", new { @class = "form-control" })
+            </div>
+            <div class="col-sm-2">
+                @Html.DropDownList("Order", (SelectList)ViewBag.ListTwo, "Filter", new { @class = "form-control" })
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success" type="submit"><span class="fa fa-filter"></span></button>
+            </div>
+        }
+
+
+        @using (Html.BeginForm("IndexCars", "Cars", FormMethod.Get))
+        {
+            <div class="col-sm-2">
+                <input type="text" placeholder="search e.g BMW" name="search" class="form-control" />
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success" onclick="this.form.submit(); this.disable = 'true'; this.value = 'Searching..'" type="submit"><span class="fa fa-search"></span></button>
+            </div>
+        }
+    </div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Make)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().IsNew)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().OutsideImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().InteriorImage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CarPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Year)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.Count() > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Make)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsNew)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OutsideImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InteriorImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+
+                <td>
+                    <a style="text-decoration:none" href="@Url.Action("Edit", new { id=item.Id })"><b>Edit</b></a> |
+                    <a style="text-decoration:none" href="@Url.Action("Details", new { id=item.Id })"><b>Details</b></a> |
+                    <a style="text-decoration:none" href="@Url.Action("Delete", new { id=item.Id })"><b>Delete</b></a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="8" style="text-align:center">
+                <h1 style="font-size:52px;color:gray">No Records To Display</h1>
+            </td>
+        </tr>
+    }
+
+
+</table>
+<ul class="pagination">
+    @Html.PagedListPager(Model, page => Url.Action("IndexCars", new { page }),
+        new PagedListRenderOptions() { Display = PagedListDisplayMode.Always, DisplayPageCountAndCurrentLocation = true })
+</ul>

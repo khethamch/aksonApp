@@ -42,6 +42,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="@Url.Action("Index","Home")">Home</a></li>
                         <li><a href="#aboutModal" data-toggle="modal" data-target=".bd-example-modal-lg">About</a></li>
+                        <li><a href="@Url.Action("ContactDealer","Home")" data-modal="">Contact Dealer</a></li>
                         <li><a href="@Url.Action("Create","TestDrives")">Book a Test Drive</a></li>
                         <li><a href="@Url.Action("Create","Bookings")">Service Booking</a></li>
                     </ul>
@@ -49,9 +50,11 @@
                 else
                 {
                     <ul class="nav navbar-nav">
+                        <li><a href="@Url.Action("MyCart","ManageProducts")">My Cart</a></li>
+                        <li><a href="@Url.Action("Index","OrderModels")">My Orders</a></li>
                         <li><a href="@Url.Action("ManageBlogs","Posts")">Blogs</a></li>
-                        <li><a href="@Url.Action("Index","Products")">Products</a></li>
-                        <li><a href="@Url.Action("Index","Cars")">Cars</a></li>
+                        <li><a href="@Url.Action("Index","ManageProducts")">Products</a></li>
+                        <li><a href="@Url.Action("IndexCars","Cars")">Cars</a></li>
                         <li><a href="@Url.Action("Create","TestDrives")">Book a Test Drive</a></li>
                         <li><a href="@Url.Action("Create","Bookings")">Service Booking</a></li>
                     </ul>
@@ -63,20 +66,65 @@
     </div>
     <div class="container body-content">
         <br /><br /><br /><br />
+        @if(TempData["Success"] != null)
+        {
+                          <div class="alert alert-success alert-dismissable">
+                              TempData["Success"]
+                          </div>
+        }
         @RenderBody()
         <br />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Akson App</p>
-        </footer>
+
+
 
     </div>
-    
-   
+    <footer id="hideFooter" style="background-color:gray;padding-bottom:2em">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <br />
+                    <p>&copy; @DateTime.Now.Year - Akson App</p>
+                </div>
+                <div class="col-sm-3">
+                    <br />
+                    <h4>Quick Links</h4>
+                    <a style="text-decoration:none;color:darkgray" href="#aboutModal" data-toggle="modal" data-target=".bd-example-modal-lg">About</a><br />
+                    <a style="text-decoration:none;color:darkgray" href="@Url.Action("Create","TestDrives")">Book a Test Drive</a><br />
+                    <a style="text-decoration:none;color:darkgray" href="@Url.Action("Create","Bookings")">Service Booking</a><br />
+                    <a style="text-decoration:none;color:darkgray" href="@Url.Action("Calculator","Home")">Get Estimate</a><br />
+                    <a style="text-decoration:none;color:darkgray" href="@Url.Action("Create","TestDrives")">Book A Test Drive</a><br />
+                    <a style="text-decoration:none;color:darkgray" href="@Url.Action("CarResults","Cars")"> View Our Cars</a><br />
+                    <a style="text-decoration:none;color:darkgray" href="@Url.Action("CarResultsForHire","Cars")"> View Cars For Hire</a>
+                </div>
+                <div class="col-sm-3">
+                    <br />
+                    <h4>Social Links</h4><br />
+                    <span class="fa fa-facebook fa-2x"></span>&nbsp;
+                    <span class="fa fa-instagram fa-2x"></span>&nbsp;
+                    <span class="fa fa-twitter fa-2x"></span>&nbsp;
+                    <span class="fa fa-youtube fa-2x"></span>&nbsp;
+                    <span class="fa fa-google fa-2x"></span>&nbsp;
+                </div>
+                <div class="col-sm-3">
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Modal.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <div id='myModal' class='modal fade in'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='myModalContent'></div>
+            </div>
+        </div>
+    </div>
     @RenderSection("scripts", required: false)
     <div class="modal fade bd-example-modal-lg" tabindex="1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">

@@ -7,7 +7,7 @@
 }
 
 <div class="jumbotron" style="padding-top:1em">
-    <h2 style="text-align:center;">Our Car Range</h2>
+    <h2 style="text-align:center;">Car's for Hire</h2>
     <br />
     @using (Html.BeginForm("CarResults", "Cars", FormMethod.Get))
     {
@@ -18,7 +18,7 @@
             @Html.DropDownList("Order", (SelectList)ViewBag.ListTwo, "Filter", new { @class = "form-control" })
         </div>
         <div class="col-sm-2">
-            <button class="btn btn-danger" type="submit">Filter <span class="fa fa-filter"></span></button>
+            <button class="btn btn-info" type="submit">Filter <span class="fa fa-filter"></span></button>
         </div>
     }
     @using (Html.BeginForm("CarResults", "Cars", FormMethod.Get))
@@ -27,27 +27,27 @@
             <input type="text" placeholder="search e.g BMW" name="search" class="form-control" />
         </div>
         <div class="col-sm-2">
-            <button class="btn btn-danger" onclick="this.form.submit(); this.disable = 'true'; this.value = 'Searching..'" type="submit">Search <span class="fa fa-search"></span></button>
+            <button class="btn btn-info" onclick="this.form.submit(); this.disable = 'true'; this.value = 'Searching..'" type="submit">Search <span class="fa fa-search"></span></button>
         </div>
     }
 </div>
 <table class="table">
     @foreach (var item in Model)
     {
-        using (Html.BeginForm("ProductResults", "ManageProducts", FormMethod.Get))
+        using (Html.BeginForm("Details", "Cars", FormMethod.Get))
         {
-            <input type="hidden" name="itemid" value="@item.Id" />
+            <input type="hidden" name="id" value="@item.Id" />
 
             <tr class="col-sm-3">
                 <td>
                     <button type="submit" style="background-color:transparent;border-color:transparent">
                         <img src="~/Cars/@item.OutsideImage" style="max-width:100%;width:200px;height:200px" /><br />
                         <b style="color:#233a77">@item.Model:  @item.Make</b><br />
-                        <b style="font-size:14px;color:indianred">Price: @item.CarPrice.ToString("c")</b><br />
+                        <b style="font-size:14px;color:darkslategrey">Price Per/Day: @item.CarPrice.ToString("c")</b><br />
                         <b style="font-size:14px">Model Year: @item.Year</b><br />
                         <b style="color:forestgreen"> Transmission : @item.TransmissionType</b>
                     </button><br />
-                    <a data-modal="" href="@Url.Action("Edit",new { id = item.Id})" class="btn btn-danger btn-block">Contact Dealer</a>
+                    <input type="submit" class="btn btn-info btn-block" value="Hire Car" height="10" />
                 </td>
             </tr>
         }
@@ -56,8 +56,8 @@
     }
 
 </table>
-
 <ul class="pagination">
     @Html.PagedListPager(Model, page => Url.Action("IndexCars", new { page }),
         new PagedListRenderOptions() { Display = PagedListDisplayMode.Always, DisplayPageCountAndCurrentLocation = true })
 </ul>
+

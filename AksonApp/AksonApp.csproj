@@ -46,6 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -196,15 +202,22 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
+    <Compile Include="Controllers\CarHireModelsController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyCartsController.cs" />
+    <Compile Include="Controllers\OrderModelsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
-    <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ManageProductsController.cs" />
     <Compile Include="Models\CalcDetails.cs" />
+    <Compile Include="Models\CarHireModel.cs" />
     <Compile Include="Models\Cars.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\LikeTable.cs" />
+    <Compile Include="Models\MyCart.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PhoneCodes.cs" />
     <Compile Include="Controllers\TestDrivesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +251,7 @@
     <Content Include="Content\Custom.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -305,11 +319,13 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\Modal.js" />
     <Content Include="Views\Posts\Create.cshtml" />
     <Content Include="Views\Posts\Delete.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Posts\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\myprojectsite.co.za - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Images\testdrive.jpg" />
     <Content Include="Scripts\bootstrap.js" />
@@ -378,24 +394,45 @@
     <Content Include="Views\TestDrives\Edit.cshtml" />
     <Content Include="Views\TestDrives\Index.cshtml" />
     <Content Include="Views\TestDrives\Success.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\ManageProducts\Create.cshtml" />
+    <Content Include="Views\ManageProducts\Delete.cshtml" />
+    <Content Include="Views\ManageProducts\Details.cshtml" />
+    <Content Include="Views\ManageProducts\Edit.cshtml" />
+    <Content Include="Views\ManageProducts\Index.cshtml" />
     <Content Include="Views\Cars\Create.cshtml" />
     <Content Include="Views\Cars\Delete.cshtml" />
     <Content Include="Views\Cars\Details.cshtml" />
     <Content Include="Views\Cars\Edit.cshtml" />
-    <Content Include="Views\Cars\Index.cshtml" />
-    <Content Include="Views\Products\ProductResults.cshtml" />
+    <Content Include="Views\Cars\IndexCars.cshtml" />
+    <Content Include="Views\ManageProducts\ProductResults.cshtml" />
     <Content Include="Views\Cars\CarResults.cshtml" />
     <Content Include="Views\Posts\ManageBlogs.cshtml" />
+    <Content Include="Views\MyCarts\Delete.cshtml" />
+    <Content Include="Views\MyCarts\Details.cshtml" />
+    <Content Include="Views\MyCarts\Edit.cshtml" />
+    <Content Include="Views\MyCarts\Index.cshtml" />
+    <Content Include="Views\Cars\CarResultsForHire.cshtml" />
+    <Content Include="Views\Home\ContactDealer.cshtml" />
+    <Content Include="Views\ManageProducts\MyCart.cshtml" />
+    <Content Include="Views\MyCarts\Clear.cshtml" />
+    <Content Include="Views\OrderModels\Create.cshtml" />
+    <Content Include="Views\OrderModels\Edit.cshtml" />
+    <Content Include="Views\OrderModels\Index.cshtml" />
+    <Content Include="Views\OrderModels\CartSummary.cshtml" />
+    <Content Include="Views\CarHireModels\Create.cshtml" />
+    <Content Include="Views\CarHireModels\Delete.cshtml" />
+    <Content Include="Views\CarHireModels\Details.cshtml" />
+    <Content Include="Views\CarHireModels\Edit.cshtml" />
+    <Content Include="Views\CarHireModels\Index.cshtml" />
+    <Content Include="Views\CarHireModels\AcceptQuote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BlogPics\" />
+    <Folder Include="Cars\" />
+    <Folder Include="Common\" />
     <Folder Include="LicenceCopies\" />
+    <Folder Include="Products\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,0 +1,131 @@
+﻿@model AksonApp.Models.OrderModel
+@using AksonApp.Models
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "MyCart";
+    var id = User.Identity.GetUserId();
+    ApplicationDbContext db = new ApplicationDbContext();
+    var finalModel = db.MyCart.Where(m => m.UserId == id && !m.IsCancelled);
+    string Ref = finalModel.Select(m => m.Reference).FirstOrDefault();
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Complete Order <text style="color:lightgray">Delivery Address</text></h2><br />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="container">
+
+                <input type="hidden" value="@Ref" name="reference" />
+                <div class="form-group">
+                    @Html.LabelFor(model => model.HouseNumber, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.HouseNumber, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                    @Html.ValidationMessageFor(model => model.HouseNumber, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                    @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" } })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Province, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.Province, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" ,@Value = "KwaZulu-Natal" ,@readonly = "readonly"} })
+                    @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label" })
+
+                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style = "width:500px" , @type = "number" } })
+                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="form-group">
+
+                    <input type="submit" value="Procced to Pay" class="btn btn-default" /> | <a title="Go back to cart." class="btn btn-warning" href="@Url.Action("MyCart","ManageProducts")">Go back to cart</a>
+
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="col-sm-6">
+        <h2>My Cart Summary <b style="color:lightgray">#@Ref</b></h2>
+        <table class="table">
+            <tr>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+
+                <th colspan="2"></th>
+            </tr>
+            @foreach (var item in finalModel)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Products/@item.Image" width="50" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+            <tr>
+                <th colspan="6">
+                    <br /><br />
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <b>Total:</b>
+                </td>
+                <td></td>
+                <td>
+                    <b>@finalModel.Sum(m => m.Quantity)</b>
+                </td>
+                <td>
+                    <b>@finalModel.Sum(m => m.Price).ToString("c")</b>
+                </td>
+
+                <td colspan="2"></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+

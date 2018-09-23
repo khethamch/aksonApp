@@ -1,0 +1,86 @@
+﻿@model IEnumerable<AksonApp.Models.OrderModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Order(s)</h2>
+
+<p>
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                <input class="form-control" type="text" name="Reference" placeholder="Reference" />
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success">Search</button>
+            </div>
+        </div>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Reference)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HouseNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Province)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference)
+            </td>
+            <td>
+                @if (item.Status == "Paid")
+                {
+                    @Html.DisplayFor(modelItem => item.Status) <span style="color:forestgreen" class="fa fa-check"></span>
+                }
+                else if (item.Status == "Cancelled")
+                {
+                    @Html.DisplayFor(modelItem => item.Status) <span style="color:orange" class="fa fa-remove"></span>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.Status)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HouseNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Province)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Code)
+            </td>
+        </tr>
+    }
+
+</table>
+<br /><br /><br /><br /><br /><br /><br /><br /><br />

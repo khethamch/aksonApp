@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using AksonApp.Models;
@@ -53,12 +55,37 @@ namespace AksonApp.Controllers
 
             return View();
         }
-
-        public ActionResult Contact()
+        [HttpGet]
+        public ActionResult ContactDealer()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ContactDealer(ContactModel contact)
+        {
+            if (ModelState.IsValid)
+            {
+                SmtpClient smtp = new SmtpClient();
+                var send = (SmtpSection)System.Configuration.ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+
+                MailMessage mail = new MailMessage();
+                mail.To.Add(contact.Email);
+                mail.Subject = "Online Enquiry Response";
+                mail.From = new MailAddress(send.From);
+                mail.Body = $"Dear {contact.Name} <br/><br/>" +
+                    $"We receive your enquiry and one of our friendly staff will contact you shortly.  <br/><br/>" +
+                    "Regards <br/>" +
+                    "Akson Service Team.";
+                mail.IsBodyHtml = true;
+
+                //smtp.Send(mail);
+
+                TempData["Success"] = "Your enquiry was sent successfully and one of our friendly staff will contact you shortly.";
+                return Json(new { success = true });
+            }
+            return View(contact);
+
         }
 
     }

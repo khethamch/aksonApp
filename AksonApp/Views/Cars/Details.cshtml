@@ -5,86 +5,89 @@
 }
 
 <h2>Details</h2>
+<div class="row">
+    @using (Html.BeginForm())
+    {
+    <div class="col-sm-6">
+        <h4>Hiring Details</h4>
+        <hr />
 
-<div>
-    <h4>Cars</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
+        <div class="col-sm-6">
+            <label>Name:</label>
+            <input type="text" class="form-control" name="name" width="400" required />
+        </div>
+        <div class="col-sm-6">
+            <label>Surname:</label>
+            <input type="text" class="form-control" name="surname" width="400" required />
+        </div>
+        <div class="col-sm-6">
+            <label>Contact:</label>
+            <input type="text" class="form-control" name="contact" width="400" required />
+        </div>
+        <div class="col-sm-6">
+            <label>Email:</label>
+            <input type="text" class="form-control" name="email" width="400" required />
+        </div>
+        <div class="col-sm-6">
+            <label>Payment Method:</label>
+            <select class="form-control" name="paymentmethode">
+                <option>Online Payment</option>
+                <option>E.F.T</option>
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <label>Pick Up Location:</label>
+            <select class="form-control" name="pickup">
+                <option>Durban Central</option>
+                <option>Airport</option>
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <label>From Date:</label>
+            <input type="date" class="form-control" name="fromDate" width="400" required />
+        </div>
+        <div class="col-sm-6">
+            <label>To Date:</label>
+            <input type="date" class="form-control" name="toDate" width="400" required />
+        </div>
+        <div class="col-sm-12">
+            <h3>Optional Extras</h3>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                @Html.CheckBox("navigation") Navigation
+            </label>
+        </div>
+        <div class="col-sm-6">
+            <label>
+                @Html.CheckBox("bluetooth") Bluetooth
+            </label>
+        </div>
+        <div class="col-sm-6">
+            <br /> <br />
+            <input type="submit" value="Submit" class="btn btn-success" onclick="this.form.submit(); this.disabled=true; this.value='Submitting...';"> | <a href="@Url.Action("CarResultsForHire")" class="btn btn-warning">Back</a>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
+    </div>
+    }
+    
+    <div class="col-sm-6">
+        <div>
+            <h4>Car Details</h4>
+            <hr />
+            <div class="col-sm-6">
+                <img src="~/Cars/@Model.OutsideImage" style="max-width:100%;width:200px;height:200px" /><br />
+                <b>Model: </b>@Html.DisplayFor(model => model.Model)<br />
+                <b>Make: </b>@Html.DisplayFor(model => model.Make)<br />
+                <b>Rate Per/Day: </b>@Html.DisplayFor(model => model.CarPrice)<br />
+                <b>Model Year: </b>@Html.DisplayFor(model => model.Year)<br />
+                <b>Transmittion: </b>@Html.DisplayFor(model => model.TransmissionType)
+            </div>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Make)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsNew)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsNew)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OutsideImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OutsideImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.InteriorImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InteriorImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CarPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CarPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateTimeStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateTimeStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsCancelled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsCancelled)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

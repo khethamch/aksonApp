@@ -1,0 +1,97 @@
+﻿@model IEnumerable<AksonApp.Models.MyCart>
+@using AksonApp.Models
+
+@{
+    ViewBag.Title = "Index";
+    ApplicationDbContext context = new ApplicationDbContext();
+}
+
+<h2>My Cart</h2>
+
+<p>
+    <div class="row">
+        <div class="col-sm-2">
+            <a href="@Url.Action("ProductResults","ManageProducts")" class="btn btn-success">Keep Shopping <span class="fa fa-shopping-cart"></span></a>
+        </div>
+        <div class="col-sm-2">
+            <a href="" class="btn btn-primary">Checkout <span class="fa fa-google-wallet"></span></a>
+        </div>
+    </div>
+</p>
+<table class="table table-hover">
+    <tr style="background-color:lightgrey">
+        <th>
+            Image
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            Update Qty
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Products/@context.Products.Where(m => m.Id == item.productId).Select(m => m.ProductImage).FirstOrDefault()" width="40" alt="" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @item.Price.ToString("c")
+            </td>
+            <td>
+                @using (Html.BeginForm("Edit", "MyCarts", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="cartId" value="@item.Id" />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <input type="number" name="newQuantity" class="form-control" style="max-width:100%;width:70px" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button title="Click to update quantity" type="submit" class="btn btn-primary"><span class="fa fa-clone"></span></button>
+                        </div>
+                    </div>
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("Delete", "MyCarts", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="cartId" value="@item.Id" />
+
+                    <button title="Remove item" type="submit" class="btn btn-danger"><span class="fa fa-trash"></span></button>
+                }
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            <b>Total</b>
+        </td>
+        <td>
+            <b>@Model.Sum(m => m.Quantity)</b>
+        </td>
+        <td>
+            <b>@Model.Sum(m => m.Price).ToString("c")</b>
+        </td>
+
+        <td colspan="3"></td>
+    </tr>
+</table>
