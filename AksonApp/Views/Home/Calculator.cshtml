@@ -8,77 +8,128 @@
         background-image: url('../../Images/1.jpg');
     }
 </style>
-@using (Html.BeginForm()) {
-<div class="container">
-    <div class="card card-container" style="max-width:100%!important;width:1000px">
-        <h2>Finance Calculator</h2>
-        <p>
-            Use our finance calculator to estimate the monthly payments on the vehicle you want to drive. You can change options, such as the deposit amount, to see what suits you best.
-        </p>
-        <div class="container">
-            <label>Repayment Period*</label><br />
-            <select name="months" class="form-control" style="max-width:100%;width:600px">
-                <option value="12">12 Months</option>
-                <option value="24">24 Months</option>
-                <option value="36">36 Months</option>
-                <option value="48">48 Months</option>
-                <option value="60">60 Months</option>
-                <option value="72">72 Months</option>
-            </select>
-            <label>Ballon Percentage*</label><br />
-            <select name="ballon" class="form-control" style="max-width:100%;width:600px">
-                <option value="0">0</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="40">40</option>
-            </select>
-            <label>Purchase Price (ZAR) *</label><br />
-            <input type="number" name="purchasePrice" class="form-control" style="max-width:100%;width:600px">
-            <label>Deposit/Trade In value</label><br />
-            <input type="number" name="deposit" onkeypress="cal()" class="form-control" style="max-width:100%;width:600px">
-            <label>Interest Rate *</label><br />
-            <select name="prime" class="form-control" style="max-width:100%;width:600px">
-                <option value="1">Prime</option>
-                <option value="2">Prime +1</option>
-                <option value="3">Prime +2</option>
-                <option value="4">Prime +3</option>
-                <option value="5">Prime +4</option>
-            </select>
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="card card-container" style="max-width:100%!important;width:1000px">
+            <h2>Finance Calculator</h2>
+            <p>
+                Use our finance calculator to estimate the monthly payments on the vehicle you want to drive. You can change options, such as the deposit amount, to see what suits you best.
+            </p>
+            <div class="container">
+                <label>Repayment Period*</label><br />
+                <select name="months" id="months" class="form-control" style="max-width:100%;width:600px">
+                    <option value="12">12 Months</option>
+                    <option value="24">24 Months</option>
+                    <option value="36">36 Months</option>
+                    <option value="48">48 Months</option>
+                    <option value="60">60 Months</option>
+                    <option value="72">72 Months</option>
+                </select>
+                <label>Ballon Percentage*</label><br />
+                <select name="ballon" id="ballon" class="form-control" style="max-width:100%;width:600px">
+                    <option value="0">0</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                </select>
+                <label>Purchase Price (ZAR) *</label><br />
+                <input type="number" name="purchasePrice" id="purchasePrice" class="form-control" style="max-width:100%;width:600px">
+                <label>Deposit/Trade In value</label><br />
+                <input type="number" name="deposit" id="deposit" class="form-control" style="max-width:100%;width:600px">
+                <label>Interest Rate *</label><br />
+                <select name="prime" id="prime" class="form-control" style="max-width:100%;width:600px">
+                    <option value="1">Prime</option>
+                    <option value="2">Prime +1</option>
+                    <option value="3">Prime +2</option>
+                    <option value="4">Prime +3</option>
+                    <option value="5">Prime +4</option>
+                </select>
 
-            <div class="row">
-                @if (Model == null)
-                {
-                    <div class="col-sm-2">
-                        <h3>R 0,00</h3>
-                        <label>Ballon Value</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <h3>R 0,00</h3>
-                        <label>Installment</label>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-sm-2">
-                        <h3>@Model.ballomPrice.ToString("c")</h3>
-                        <label>Ballon Value</label>
-                    </div>
-                    <div class="col-sm-2">
-                        <h3>@Model.Installment.ToString("c")</h3>
-                        <label>Installment</label>
-                    </div>
-                }
+                <div class="row">
+                    @if (Model == null)
+                    {
+                        <div class="col-sm-2">
+                            <h3 class="ballonValue">R 0,00</h3>
+                            <label>Ballon Value</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="installmentValue">R 0,00</h3>
+                            <label>Installment</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-2">
+                            <h3 class="ballonValue">@Model.ballomPrice.ToString("c")</h3>
+                            <label>Ballon Value</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="installmentValue">@Model.Installment.ToString("c")</h3>
+                            <label>Installment</label>
+                        </div>
+                    }
 
-                <div class="col-sm-12">
-                    <input type="submit" class="btn btn-success" onclick="this.form.submit(); this.form.disabled = true; this.value = 'Processing...'" value="Get Estimate" />
+                    <div class="col-sm-12">
+                        <input type="submit" class="btn btn-success" onclick="this.form.submit(); this.form.disabled = true; this.value = 'Processing...'" value="Get Estimate" />
+                    </div>
                 </div>
-            </div>
-            <div class="alert alert-info" style="max-width:100%;width:900px">
-                Any information obtained on this calculator will not constitute a finance quote as contemplated by the NCA and customers are reminded that any information regarding our finance products are subject to change. An Initiation and Monthly Fee will apply. Terms and Conditions apply.
+                <div class="alert alert-info" style="max-width:100%;width:900px">
+                    Any information obtained on this calculator will not constitute a finance quote as contemplated by the NCA and customers are reminded that any information regarding our finance products are subject to change. An Initiation and Monthly Fee will apply. Terms and Conditions apply.
+                </div>
             </div>
         </div>
     </div>
-</div>
 }
+<script src="~/Scripts/jquery-2.2.4.min.js"></script>
+
+<script type="text/javascript">
+
+    let months = $('#months'),
+        ballom = $('#ballon'),
+        price = $('#purchasePrice'),
+        deposit = $('#deposit'),
+        prime = $('#prime');
+
+    months.on('change', monthsHandler);
+    ballom.on('change', ballonHandler);
+    prime.on('change', primeHandler);
+
+    function primeHandler() {
+        let p = prime.val();
+        if (p) {
+            p = parseInt(p);
+            if (p === 1) { p = parseFloat(10.25); }
+            if (p === 2) { p = parseFloat(11.25); }
+            if (p === 3) { p = parseFloat(12.25); }
+            if (p === 4) { p = parseFloat(13.25); }
+            if (p === 5) { p = parseFloat(14.25); }
+        }
+        return p;
+    }
+
+    function ballonHandler() {
+        /** Ballom Price */
+        let price = (parseFloat(ballom.val()) / 100.0) * primeHandler();
+        if (price) {
+            $('.ballonValue').html("R" + price.toFixed(2));
+            return price;
+        }
+       
+    }
+
+    function monthsHandler() {
+        /** Installment*/
+        let ballomPrice = ballonHandler();
+        let primePrice = primeHandler();
+        let installment =  (((parseFloat(price.val()) -
+            ballomPrice - parseFloat(deposit.val())) / parseInt(months.val()))
+            * (primePrice / 100.0));
+        if (installment) {
+            $('.installmentValue').html('R' + installment.toFixed(2))
+            return installment;
+        }
+    }
+</script>
 
